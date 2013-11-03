@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">	
+  <title>VIEWER</title>
+  <link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link rel="stylesheet" href="/static/js/lib/leaflet/leaflet.css" />
+  <!--[if lte IE 8]><link rel="stylesheet" href="/static/js/lib/leaflet/leaflet.ie.css" /><![endif]-->
+	<link rel="stylesheet" href="/static/js/lib/leaflet/leaflet.draw.css" />
+	<!--[if lte IE 8]><link rel="stylesheet" href="/static/js/lib/leaflet/leaflet.draw.ie.css" /><![endif]-->
+
+  <link rel="stylesheet" href="/static/css/app.css" type="text/css" media="screen" title="no title" charset="utf-8">
+</head>
+<body id="App">
+{% csrf_token %}	
+				<div id="MapContainer">
+					<div id="map" class="fill"></div>
+				</div>
+	  <script data-main="/static/js/index" src="/static/js/require.js"></script>
+</body>
+</html>

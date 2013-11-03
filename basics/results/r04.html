@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<title>Polyline</title>
+		<script src="./js/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/leaflet/leaflet.js" type="text/javascript" charset="utf-8"></script>
+	  <link rel="stylesheet" href="./js/leaflet/leaflet.css" />
+	  <!--[if lte IE 8]><link rel="stylesheet" href="./js/lib/leaflet/leaflet.ie.css" /><![endif]-->
+		<style type="text/css" media="screen">
+			body{
+				margin:0;
+			}
+			.my-div-icon{
+				color:yellow;
+				background-color:green;
+			}
+			
+		</style>
+		<script charset="utf-8">
+		
+		$(function(){
+			var map = L.map("map").setView(new L.LatLng(34.71325470154942,135.39911270141602), 13);
+			L.tileLayer('http://{s}.tile.cloudmade.com/77b7b2219a944c3cbf118035611d6dae/997/256/{z}/{x}/{y}.png',
+			{
+				attributes:'Map data &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, '
+							  		+ 'Imagery &copy; <a href="http://cloudmade.com">CloudMade</a>'
+			}).addTo(map);
+			
+			var onWindowResize = function(){
+				$("#map").height($(this).height() - 10);
+				map.invalidateSize();
+			};
+			$(window).on("resize",onWindowResize);
+			onWindowResize();
+			
+  		var points =[
+  			L.latLng(35.902538923668644,139.93895530700684),
+  			L.latLng(34.707178025105534,135.49422919750214)
+  		];
+
+      var myIcon = L.icon({
+        iconUrl:"./images/chitei_sweat.png",
+        iconRetinaUrl:"./images/chitei_sweat-2x.png",
+        iconSize:[48,61], // L.point(48,61)
+        iconAnchor:[24,61],
+        shadowUrl:"./images/shadow-chitei_sweat.png",
+        shadowRetinaUrl:"./images/shadow-chitei_sweat-2x.png",
+        shadowSize:[79.61],
+        shadowAnchor:[10,61]
+      });
+			
+			var myDivIconClass = L.DivIcon.extend({
+				statics:{
+					defaultSize:L.point(200,100),
+				},
+			});
+
+			
+			(function(){
+				for (var i=0; i < points.length; i++){
+          var marker = new L.Marker(points[i],{icon:myIcon,draggable:true,opacity:0.8});
+          // var marker = new L.Marker(points[i],{icon:new myDivIconClass({
+          //  iconSize:myDivIconClass.defaultSize,
+          //  html:"地底人は" + "<br>" + points[i].lat + ",<br> " + points[i].lng + "<br> にいる！！",
+          //  className:"my-div-icon"
+          //  
+          //  })});
+					marker.addTo(map);
+				}
+				
+			})();
+			
+  		var lines = [
+  			[
+  				[34.68404023638139,135.3676986694336],
+  				[34.69194468425019,135.37250518798828],
+  				[34.699001589175694,135.37593841552732],
+  				[34.70634013194013,135.38005828857422],
+  				[34.713395809196285,135.38280487060547],
+  				[34.7198865006899,135.3852081298828],
+  				[34.72327274617847,135.3841781616211],
+  				[34.728069689872314,135.38108825683594],
+  				[34.73117344628392,135.38040161132812],
+  				[34.735405653558466,135.38074493408203],
+  				[34.73991976908823,135.38074493408203],
+  				[34.74584417145821,135.37731170654297],
+  				[34.75233231513258,135.37490844726562],
+  				[34.7602302368772,135.3738784790039],
+  				[34.76389687232034,135.3752517700195],
+  				[34.767845374513804,135.37593841552732],
+  				[34.77151167170742,135.37456512451172],
+  				[34.77545980961412,135.37456512451172],
+  				[34.78250958602015,135.37353515625],
+  				[34.78955875999958,135.37181854248047],
+  				[34.79209631514749,135.36975860595703]
+  			],
+  			[
+  				[34.69646117272349,135.40958404541016],
+  				[34.70097741472011,135.41507720947266],
+  				[34.70521116772807,135.42434692382812],
+  				[34.707469080745376,135.42949676513672],
+  				[34.71170250154446,135.43155670166016],
+  				[34.714806872423296,135.44288635253906],
+  				[34.71903991764788,135.44837951660156],
+  				[34.72411928588024,135.44837951660156],
+  				[34.732584206123626,135.44769287109375],
+  				[34.734559229442404,135.45146942138672]			
+  			]
+  		];						
+			
+			(function(){
+			  var myStyle = {
+			  	color:"#f36",
+			  	weight:5,
+			  	opacity:0.8,
+			  	dashArray:[15, 15, 5, 15],
+			  }
+
+				for(var i=0; i < lines.length; i++){
+					var pln = L.polyline(lines[i]).addTo(map);
+					pln.setStyle(myStyle);
+				}
+			})();			
+						
+		});
+		
+		
+		
+		</script>
+	</head>
+	<body>
+		<div id="map"></div>
+		
+	</body>
+</html>

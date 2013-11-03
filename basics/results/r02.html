@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<title>Marker Layer</title>
+		<script src="./js/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/leaflet/leaflet.js" type="text/javascript" charset="utf-8"></script>
+	  <link rel="stylesheet" href="./js/leaflet/leaflet.css" />
+	  <!--[if lte IE 8]><link rel="stylesheet" href="./js/lib/leaflet/leaflet.ie.css" /><![endif]-->
+		
+		<script charset="utf-8">
+		var points =[
+			L.latLng(35.902538923668644,139.93895530700684),
+			L.latLng(34.707178025105534,135.49422919750214)
+		];
+		
+		$(function(){
+			var map = L.map("map").setView(new L.LatLng(34.5,135.5), 8);
+			L.tileLayer('http://{s}.tile.cloudmade.com/77b7b2219a944c3cbf118035611d6dae/997/256/{z}/{x}/{y}.png',
+			{
+				attributes:'Map data &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, '
+							  		+ 'Imagery &copy; <a href="http://cloudmade.com">CloudMade</a>'
+			}).addTo(map);
+			
+			var onWindowResize = function(){
+				$("#map").height($(this).height() - 10);
+				map.invalidateSize();
+			};
+			$(window).on("resize",onWindowResize);
+			onWindowResize();
+			
+			(function(){
+				for (var i=0; i < points.length; i++){
+					L.marker(points[i]).addTo(map);
+				}
+				
+			})();
+			
+		});
+		
+		
+		
+		</script>
+	</head>
+	<body>
+		<div id="map"></div>
+		
+	</body>
+</html>

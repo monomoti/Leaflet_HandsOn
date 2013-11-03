@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<title>Polyline</title>
+		<script src="./js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/leaflet/leaflet.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="./js/leaflet/leaflet.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="./js/lib/leaflet/leaflet.ie.css" /><![endif]-->
+		
+		<style type="text/css" media="screen">
+			body{
+				margin:0;
+			}
+			.my-div-icon{
+				color:yellow;
+				background-color:green;
+			}
+			
+		</style>
+		
+		<script type="text/javascript" charset="utf-8">
+		$(function(){
+		    var map = new L.Map("map").setView(new L.LatLng(34.7067,135.45), 12),
+		    baseLayer = new L.TileLayer('http://{s}.tile.cloudmade.com/77b7b2219a944c3cbf118035611d6dae/997/256/{z}/{x}/{y}.png',
+		  {
+		  	minZoom:2,
+		  	maxZoom:20,
+		  	attribution: 'Map data &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, '
+		    		+ 'Imagery &copy; <a href="http://cloudmade.com">CloudMade</a>'
+		  });
+		  map.addLayer(baseLayer);
+		
+			var onWindowResize = function(){
+				$("#map").height($(window).height() - 10);
+				map.invalidateSize();
+			};
+			$(window).on("resize",onWindowResize);
+			
+			onWindowResize();
+		
+			var points =[
+				L.latLng(35.902538923668644,139.93895530700684),
+				L.latLng(34.707178025105534,135.49422919750214)
+			];
+
+			(function(){
+				var myIcon = L.icon({
+					iconUrl:"./images/chitei_sweat.png",
+					iconRetinaUrl:"./images/chitei_sweat-2x.png",
+					iconSize:[48,61], 
+					iconAnchor:[24,61],
+					shadowUrl:"./images/shadow-chitei_sweat.png",
+					shadowRetinaUrl:"./images/shadow-chitei_sweat-2x.png",
+					shadowSize:[79.61],
+					shadowAnchor:[10,61]
+				});
+				
+				for (var i=0; i < points.length; i++){
+					L.marker(points[i],{icon:myIcon}).addTo(map);
+				}
+			
+			})();			
+			
+			
+
+		});
+		
+		</script>
+	</head>
+	<body>
+		<div id="map"></div>
+		
+	</body>
+</html>

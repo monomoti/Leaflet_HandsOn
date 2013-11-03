@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+	  <meta charset="utf-8">
+	  <title>Map</title>
+		<script src="./js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/leaflet/leaflet.js" type="text/javascript" charset="utf-8"></script>
+	  <link rel="stylesheet" href="./js/leaflet/leaflet.css" />
+	  <!--[if lte IE 8]><link rel="stylesheet" href="./js/lib/leaflet/leaflet.ie.css" /><![endif]-->
+	<style type="text/css" media="screen">
+		body{
+			margin:0;
+		}
+		#map{
+/*			height:100%;*/
+		}
+	</style>
+	<script type="text/javascript" charset="utf-8">
+	$(function(){
+	
+		// 丁寧に書くと
+		  var map = new L.Map("map").setView(new L.LatLng(34.5,135.5), 8),
+		  baseLayer = new L.TileLayer('http://{s}.tile.cloudmade.com/77b7b2219a944c3cbf118035611d6dae/997/256/{z}/{x}/{y}.png',
+		{
+			minZoom:2,
+			maxZoom:20,
+			attribution: 'Map data &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, '
+		  		+ 'Imagery &copy; <a href="http://cloudmade.com">CloudMade</a>'
+		});
+		map.addLayer(baseLayer);
+	
+		// new L.Klassは l.klassに変更可能
+		//   var map = L.map("map").setView(L.latLng(34,135), 8),
+		//   baseLayer = L.tileLayer('http://{s}.tile.cloudmade.com/77b7b2219a944c3cbf118035611d6dae/997/256/{z}/{x}/{y}.png',
+		// {
+		// 	minZoom:2,
+		// 	maxZoom:20,
+		// 	attribution:'Map data &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, '
+		//   		+ 'Imagery &copy; <a href="http://cloudmade.com">CloudMade</a>',
+		// });
+		// map.addLayer(baseLayer);
+
+		// addToをつかう
+		//   var map = L.map("map").setView(L.latLng(34,135), 8),
+		//   L.tileLayer('http://{s}.tile.cloudmade.com/77b7b2219a944c3cbf118035611d6dae/997/256/{z}/{x}/{y}.png',
+		// {
+		// 	minZoom:2,
+		// 	maxZoom:20,
+		// 	attribution: 'Map data &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, '
+		//   		+ 'Imagery &copy; <a href="http://cloudmade.com">CloudMade</a>'
+		// }).addTo(map);
+	
+
+		var onWindowResize = function(){
+			$("#map").height($(window).height() - 10);
+			map.invalidateSize();
+		};
+		$(window).on("resize",onWindowResize);
+
+		onWindowResize();
+
+		// var bounds = new L.LatLngBounds([34.967, 135.84045],[35.50987, 136.26892]);
+		// map.fitBounds(bounds);
+	//"http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi"
+	//http://www.finds.jp/ws/kiban2500wms.cgi
+		var nexrad = L.tileLayer.wms("http://www.finds.jp/ws/kiban2500wms.cgi", {
+		    layers: 'KIBAN2500',//'nexrad-n0r-900913',
+		    format: 'image/png',
+		    transparent: true,
+		    attribution: "独立行政法人 農業・食品産業技術総合研究機構 近畿中国四国農業研究センター",
+		}).addTo(map);
+		// map.fitBounds([[32.82421, -104.52393],[39.75788, -92.41699]]);
+
+	// map.on("click",function(e){console.log(e.latlng.toString())});
+
+	});	
+	</script>
+	</head>
+	<body>
+		<div id="map"></div>
+	</body>
+</html>

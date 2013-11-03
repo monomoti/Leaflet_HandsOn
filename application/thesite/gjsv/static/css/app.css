@@ -1,0 +1,37 @@
+#MapContainer{
+/*    padding-left: 0;
+    padding-right: 0;
+*/}
+
+#PlaceListContainer{
+    overflow: auto;
+}
+
+@media(min-width: 768px){   
+    .full-width-row{
+        background-color:#fff;
+    }
+}
+
+@media(min-width: 992px){   
+    .full-width-row{
+        background-color:#fff;
+
+    }
+}
+
+@media(min-width: 1200px){   
+    .full-width-row{
+        background-color:#fff;
+    }
+}
+
+
+.fill{ 
+    height:100%;
+    min-height:100%;
+}
+.offset-0 {
+    padding-left: 0;
+    padding-right: 0;
+}
