@@ -358,7 +358,10 @@
 			L.geoJson(citiesData,{
 				style:pgnStyle,
 				onEachFeature:function(feature,layer){
-					addCommonListenersToVector(layer,{offStyle:pgnStyle,onStyle:pgnOnStyle});
+						// var popUp = L.popup();
+						layer.bindPopup(feature.properties.N03_004);
+
+					// addCommonListenersToVector(layer,{offStyle:pgnStyle,onStyle:pgnOnStyle});
 				}					
 			}).addTo(map);
 			
